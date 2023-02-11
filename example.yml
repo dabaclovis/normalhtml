@@ -1,0 +1,47 @@
+---
+- name: give a name to your playbook
+  hosts: all
+  become: true
+  tasks:
+  - name: install git
+    apt:
+      name: git 
+      state: present
+  - name: install jenkins 
+    apt:
+      name: jenkins
+      state: present
+  - name: install java
+    apt:
+      name: default-jdk
+      state: present
+  - name: install tomcat
+    apt:
+      name: tomcat9
+      state: present
+  - name: change port in tomcat
+    replace:
+      regexp: 8080
+      replace: 9090
+      path: /etc/tomcat9/server.xml
+  - name: start tomcat
+    service:
+       name:
+       state: restarted
+  - name: start jenkins
+    service: 
+      name: jenkins
+      state: restarted
+  - name: install apache2
+    apt: 
+      name: apache2
+      state: present
+  - name: create directory
+    file:
+      name: clovis
+      state: directory
+  - name: create file 
+    file:
+      name: index.html
+      state: touch
+...

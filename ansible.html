@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+      <title>devops tools | profile | showcase of work</title>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="devops tools, git, maven, jenkins, docker, ansible ansible ad-hoc commands">
+
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+      <link rel="stylesheet" href="/resources/demos/style.css">
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+      <link rel="stylesheet" type="text/css" href="styles.css">
+
+</head>
+
+<body style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: larger;">
+ <nav class="navbar navbar-expand-md navbar-dark sticky-top bg-dark">
+  <div class="container">
+     <a class="navbar-brand" href="/index.html">
+         <h3>Dev<sup>Ops</sup></h3>
+     </a>
+     <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+         aria-expanded="false" aria-label="Toggle navigation">
+         <span class=" navbar-toggler-icon"></span>
+        </button>
+     <div class="collapse navbar-collapse" id="collapsibleNavId">
+         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+             <li class="nav-item active">
+                 <a class="nav-link" href="/index.html">Home</a>
+             </li>
+             <li class="nav-item">
+                 <a class="nav-link" href="/about.html">About</a>
+             </li>
+             <li class="nav-item">
+                 <a class="nav-link" href="/blogs.html">Articles</a>
+             </li>
+             <!-- <li class="nav-item dropdown">
+                 <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                 <div class="dropdown-menu" aria-labelledby="dropdownId">
+                     <a class="dropdown-item" href="#">Action 1</a>
+                     <a class="dropdown-item" href="#">Action 2</a>
+                 </div>
+             </li> -->
+         </ul>
+         <!-- <form class="form-inline my-2 my-lg-0">
+             <input class="form-control mr-sm-2" type="text" placeholder="Search">
+             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+         </form> -->
+     </div>
+      </div>
+ </nav>
+ <div class=" container py-2">
+ 	<div class="row">
+ 		<div class="col-9">
+     <p><h2>What is Ansible</h2></p>
+     <p>Ansible is an open source automation platform used for IT tasks such as configuration management, application deployment, and orchestration. It can be used to manage both local and remote systems, and is designed to be very easy to use.
+     	
+     </p>
+<p><h2>Ansible ad-hoc commands</h2></p>
+<p>
+Ansible Ad-hoc commands are one-time commands that can be used to perform quick
+ tasks such as file transfers, package installation, and system administration. 
+ <p>
+  E.g ansible all -m apt -a 'name=git, state=present' -b
+ </p>
+ <p>The above command will install git on all managed nodes present in the inventory file:
+  <ol>
+    <li>ansible: constant</li>
+    <li>all: host/hosts machines present in the inventory file</li>
+    <li>m: stands for the modules </li>
+    <li>apt: is the modules use </li>
+    <li>a: stands for arguement</li>
+    <li>state: present means install</li>
+    <li>state: absent means uninstall</li>
+    <li>-b: equivalent to sudo in linux</li>
+   
+  </ol>
+ </p>
+</p>
+<hr>
+<p><h2>Ansible Modules</h2></p>
+<p>
+Ansible Modules are reusable, standalone scripts that can be used by the Ansible API, or by the ansible command line tool. Modules can be written in any language and are used for executing specific tasks, like manipulating files, or installing packages.
+<p>Some modules of Ansible:
+	<ul>
+		<li>apt: To download packages from the internet</li>
+    <li>file: To make directory or file in a remote system</li>
+    <li>copy: To copy files from controller to managed nodes</li>
+    <li>git: To clone a remote repository</li>
+    <li>replace: To change remote host port of replace a file with some content</li>
+    <li>uri: To check the url of managed nodes</li>
+    <li>fetch: To copy files from managed nodes to controller machine</li>
+    <li>ping: To check if managed nodes are reachable</li>
+    <li>service: use to start a service in a managed node</li>
+	</ul>
+</p>
+</p>
+<p><h2 id="playbook">Ansible Playbook</h2></p>
+<p>
+Ansible Playbooks are written in the YAML data serialization language and are used to define a set of tasks that will be executed on one or more remote hosts. Playbooks are written in a declarative manner, and can be used to orchestrate complex multi-tier deployments.
+</p>
+<p><h2 id="config">Ansible Configuration</h2></p>
+<p>
+Ansible Configuration is a set of configuration files that are used to customize the behavior of Ansible. Configuration files are written in the YAML data serialization language. They can be used to define variables, specify authentication details, and other settings that can be
+</p>
+<p><h2 id="example">Example of ansible playbook</h2></p>
+<p>
+<pre>
+---
+- name: give a name to your playbook
+  hosts: all
+  become: true
+  tasks:
+  - name: install git
+    apt:
+      name: git 
+      state: present
+  - name: install jenkins 
+    apt:
+      name: jenkins
+      state: present
+  - name: install java
+    apt:
+      name: default-jdk
+      state: present
+  - name: install tomcat
+    apt:
+      name: tomcat9
+      state: present
+  - name: change port in tomcat
+    replace:
+      regexp: 8080
+      replace: 9090
+      path: /etc/tomcat9/server.xml
+  - name: start tomcat
+    service:
+       name:
+       state: restarted
+  - name: start jenkins
+    service: 
+      name: jenkins
+      state: restarted
+  - name: install apache2
+    apt: 
+      name: apache2
+      state: present
+  - name: create directory
+    file:
+      name: clovis
+      state: directory
+  - name: create file 
+    file:
+      path: index.html
+      state: touch
+...
+</pre>
+</p>
+</div>
+<div class="col-3">
+	<p><h2>Table Of Content</h2></p>
+	<ul class="list-group w3-card">
+		<a href="" class=" list-group-item list-group-item-action">What is ansible</a>
+		<a href="" class=" list-group-item list-group-item-action">Ansible Ad-hoc commands</a>
+		<a href="" class=" list-group-item list-group-item-action">Ansible modules</a>
+		<a href="#playbook" class=" list-group-item list-group-item-action">Ansible Playbook</a>
+		<a href="#config" class=" list-group-item list-group-item-action">What is Configuration</a>
+		<a href="#example" class=" list-group-item list-group-item-action">Example of Ansible playbook</a>
+	</ul>
+</div>
+</div>
+
+
+ </div>
+ <div class="bg-secondary text-white p-2">
+     <div class="container">
+         <div class="text-center mb-1 w3-bottombar">
+             <a href="/about.html" class="btn btn-primary">About</a>
+             <a href="/policy.html" class="btn btn-primary">Policy</a>
+             <a href="https://github.com/dabaclovis" class="btn btn-primary">GitHUb</a>
+             <a href="" class="btn btn-primary">D.Hub</a>
+             <a href="" class="btn btn-primary">website</a>
+         </div>
+         <div class="text-center">
+             <div>&copy;2023 All Right Reserve</div>
+             <div>powered by github pages</div>
+         </div>
+     </div>
+ </div>
+
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+      <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
